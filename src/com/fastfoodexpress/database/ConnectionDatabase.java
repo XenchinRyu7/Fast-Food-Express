@@ -7,8 +7,8 @@ import java.sql.Statement;
 
 public class ConnectionDatabase {
     
-    private Statement st;
-    private ResultSet rs;
+    public Statement st;
+    public ResultSet rs;
     public Connection connect;
     
     public void ConnectionDatabase() {
@@ -27,34 +27,6 @@ public class ConnectionDatabase {
             System.out.println("" + e.getLocalizedMessage());
         }
     }
-    
-    public String[] querySql(String query) {
-        String[] k = null;
-
-        try {
-            st = connect.createStatement();
-            rs = st.executeQuery(query);
-
-            int rowCount = 0;
-            if (rs.last()) {
-                rowCount = rs.getRow();
-                rs.beforeFirst();
-            }
-
-            k = new String[rowCount * 2];
-
-            int index = 0;
-            while (rs.next()) {
-                k[index++] = rs.getString(1);
-                k[index++] = rs.getString(2);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        return k;
-    }
-
 
     public void closeConnection() {
         try {
